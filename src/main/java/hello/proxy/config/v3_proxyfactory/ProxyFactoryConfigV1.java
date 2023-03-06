@@ -16,11 +16,11 @@ import org.springframework.context.annotation.Configuration;
 public class ProxyFactoryConfigV1 {
 
     @Bean
-    public OrderControllerV2 orderControllerV2(LogTrace logTrace) {
-        OrderControllerV2 orderController = new OrderControllerV2Impl(orderServiceV1(logTrace));
+    public OrderControllerV1 orderControllerV1(LogTrace logTrace) {
+        OrderControllerV1 orderController = new OrderControllerV1Impl(orderServiceV1(logTrace));
         ProxyFactory factory = new ProxyFactory(orderController);
         factory.addAdvisor(getAdvisor(logTrace));
-        OrderControllerV2 proxy = (OrderControllerV2) factory.getProxy();
+        OrderControllerV1 proxy = (OrderControllerV1) factory.getProxy();
         log.info("ProxyFactory proxy={}, target={}", proxy.getClass(), orderController.getClass());
         return proxy;
     }
